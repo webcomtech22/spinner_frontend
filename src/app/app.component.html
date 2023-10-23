@@ -23,8 +23,8 @@
 
 
   <div class="modal" *ngIf="isDialogVisible"  tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
-    <div class="modal-dialog" role="document">
-          <div class="modal-content">
+    <div class="modal-dialog" style="width: 30%;" role="document">
+          <div class="modal-content" style="background: skyblue;">
                 <div class="modal-header bg_blue">
                       <h4 class="modal-title color_yellow">Give Price</h4>
                       <button type="button" class="close" (click)="onCloseHandled()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -33,7 +33,7 @@
             <form class="row" (ngSubmit)="submitForm($event)">
               <div class="mb-2 col-4">
               <label for="exampleInputEmail1" class="fw-bold form-label font">Name</label>
-                <input type="text" name="name"  class="form-control font" [(ngModel)]="singleData.name" >
+                <input type="text" name="name" disabled class="form-control font" [(ngModel)]="singleData.name" >
               </div>
               <div class="mb-2 col-4">
                 <label for="1" class="fw-bold form-label font">Price</label>
@@ -44,35 +44,35 @@
                 <input type="number" name="userPrice" placeholder="Give your Price" class="form-control font" [(ngModel)]="inputValue">
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(100,$event)" class="px-5"> +100 </button>
+                <button (click)="getButtonValue(100,$event)" style="padding: 0px 35px;"> +100 </button>
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(200,$event)" class="px-5"> +200 </button>
+                <button (click)="getButtonValue(200,$event)" style="padding: 0px 35px;"> +200 </button>
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(300,$event)" class="px-5"> +300 </button>
+                <button (click)="getButtonValue(300,$event)" style="padding: 0px 35px;"> +300 </button>
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(400,$event)" class="px-5"> +400 </button>
+                <button (click)="getButtonValue(400,$event)" style="padding: 0px 35px;"> +400 </button>
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(500,$event)" class="px-5"> +500 </button>
+                <button (click)="getButtonValue(500,$event)" style="padding: 0px 35px;"> +500 </button>
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(600,$event)" class="px-5"> +600 </button>
+                <button (click)="getButtonValue(600,$event)" style="padding: 0px 35px;"> +600 </button>
               </div>
               <div class="mb-2 col-10">
                 <label for="1" class="fw-bold form-label font" style="">Profit</label>
-                <label for="1" class="d-block fw-bold form-label font" style="margin-top: -10px;"> {{(singleData.price * inputValue)-inputValue}}</label>
+                <label for="1" class="d-block fw-bold form-label font" style="color: green; margin-top: -10px;"> {{(singleData.price * inputValue)-inputValue}}</label>
               </div>
               <div class="mb-2 col-2">
                 <label for="1" class="fw-bold form-label font" style="">Loss</label>
-                <label for="1" class="d-block fw-bold form-label font" style="margin-top: -10px;">{{inputValue}}</label>
+                <label for="1" class="d-block fw-bold form-label font" style="color:red;margin-top: -10px;">{{inputValue}}</label>
               </div>
              
              <div class="modal-footer">
              <button type="button" class="btn btn-secondary" (click)="onCloseHandled()">Cancel</button>
-             <button type="submit" class="btn btn-primary">Start</button>
+             <button type="submit" class="btn btn-primary">Place Bet</button>
              </div>
        </form>
            </div>     

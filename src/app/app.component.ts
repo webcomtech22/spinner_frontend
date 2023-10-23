@@ -23,13 +23,16 @@ export class AppComponent {
   isButtonDisabled : boolean = false;
   inputValue: number = 0;
   profitValue: number = this.inputValue * this.singleData.price; // Calculate profitValue
-  
+  minimumBets:any;
+  showSpinner: boolean = true;
   constructor(private renderer: Renderer2, private el: ElementRef,private http:HttpClient) {}
   
 
   ngOnInit(): void {
     this.getData();
     this.startTimer();
+    this.getMinimumBets();
+    this.spinwheel2()
   }
 
 
@@ -64,7 +67,8 @@ export class AppComponent {
   updateButtons(){
     if(this.remainingTime <= 10 && !this.isSpinning){
       this.isSpinning = true;
-      this.spinwheel()
+      // this.spinwheel()
+      this.spinwheel2()
       this.isButtonDisabled = true;
       setTimeout(() => {
         this.isSpinning = false;
@@ -74,42 +78,82 @@ export class AppComponent {
     }
   }
 
+  spinwheel2(){
+    // const minimumData = this.minimumBets
+    const randomValue = Math.floor(Math.random() * 10000) 
+    let wheel =  this.el.nativeElement.querySelector(".wheel")
+    this.renderer.setStyle(wheel,"transform",`rotate(${randomValue}deg)`)
+    console.log("random:",randomValue)
 
-  spinwheel() {
-    const myselectedValue = this.singleData.id;
-    const userValue = this.singleData.userPrice;
-    const selectedName = this.singleData.name;
-    const totalprice = userValue * this.singleData.price;
+    const remainingtime = this.remainingTime
+    const fieldsArray = ['tiger','lion','dragon','king']
+    // console.log(this.minimumBets[0].field)
+    for(const field of fieldsArray){
+        if(this.minimumBets.field === field && remainingtime <= 5 && remainingtime > 0){
+          const stopAngel = this.stopAtAngle(field)
+          this.renderer.setStyle(wheel,"transition","none")
+          this.renderer.setStyle(wheel, 'transform',`rotate(${stopAngel}deg)`)
+          break;
+        }
+    } 
+  }
 
-    console.log("my selected value:", myselectedValue);
-    console.log("Selected Name:", selectedName);
+  stopAtAngle(field: string): number {
+    let stopAngle: number;
 
-    let wheel = this.el.nativeElement.querySelector('.wheel');
-    let randomValue = Math.floor(Math.random() * 10000); // Random value between 0 and 359
-    console.log("Random Value:", randomValue);
-
-    // Adjust initial rotation to align with the top side of the wheel
-    let initialRotation = 360 - randomValue;
-    this.renderer.setStyle(wheel, 'transform', `rotate(${initialRotation}deg)`);
-
-    let relativeDegree =(randomValue % 360);
-    const segmentSize = 360 / this.data.length;
-    const segmentIndex = Math.floor(relativeDegree / segmentSize);
-    console.log("Segment Index:", segmentIndex);
-
-    const selectedData = this.data[segmentIndex];
-    console.log('Final Data:', selectedData.name);
-    setTimeout(() => {
-      if (selectedData.name === selectedName) {
-        console.log(`Congratulations! You won with ${totalprice} rupees`);
-        // alert(`Congratulations! its ${selectedData.name} You won with ${totalprice} rupees`)
+    // Logic to calculate stop angle based on the field
+    if (field === 'tiger') {
+        stopAngle = 45/* calculate stop angle for tiger */;
+    } else if (field === 'lion') {
+        stopAngle = 120 /* calculate stop angle for lion */;
+    } else if (field === 'dragon') {
+        stopAngle = 240 /* calculate stop angle for dragon */;
+    } else if (field === 'king') {
+        stopAngle = 300/* calculate stop angle for king */;
     } else {
-        console.log(`Sorry, you lose ${userValue} rupees`);
-        // alert(`Sorry,its ${selectedData.name} you lose with ${userValue} rupees`)
+        // Handle other fields if needed
+        stopAngle = 90/* default stop angle if field is not recognized */;
     }
-    }, 5000);
-    
+
+    return stopAngle;
 }
+
+
+//   spinwheel() {
+//     const myselectedValue = this.singleData.id;
+//     const userValue = this.singleData.userPrice;
+//     const selectedName = this.singleData.name;
+//     const totalprice = userValue * this.singleData.price;
+
+//     console.log("my selected value:", myselectedValue);
+//     console.log("Selected Name:", selectedName);
+
+//     let wheel = this.el.nativeElement.querySelector('.wheel');
+//     let randomValue = Math.floor(Math.random() * 10000); // Random value between 0 and 359
+//     console.log("Random Value:", randomValue);
+
+//     // Adjust initial rotation to align with the top side of the wheel
+//     let initialRotation = 360 - randomValue;
+    // this.renderer.setStyle(wheel, 'transform', `rotate(${initialRotation}deg)`);
+
+//     let relativeDegree =(randomValue % 360);
+//     const segmentSize = 360 / this.data.length;
+//     const segmentIndex = Math.floor(relativeDegree / segmentSize);
+//     console.log("Segment Index:", segmentIndex);
+
+//     const selectedData = this.data[segmentIndex];
+//     console.log('Final Data:', selectedData.name);
+//     setTimeout(() => {
+//       if (selectedData.name === selectedName) {
+//         console.log(`Congratulations! You won with ${totalprice} rupees`);
+//         // alert(`Congratulations! its ${selectedData.name} You won with ${totalprice} rupees`)
+//     } else {
+//         console.log(`Sorry, you lose ${userValue} rupees`);
+//         // alert(`Sorry,its ${selectedData.name} you lose with ${userValue} rupees`)
+//     }
+//     }, 5000);
+    
+// }
 
   submitForm(event:Event){
     // this.spinwheel();
@@ -161,6 +205,13 @@ export class AppComponent {
       this.singleData = res
       this.isDialogVisible = true;
       // console.log(res)
+    })
+  }
+
+  getMinimumBets(){
+    this.http.get("http://localhost:3100/showBetsData").subscribe(res=>{
+      this.minimumBets = res
+      console.log(this.minimumBets)
     })
   }
   
