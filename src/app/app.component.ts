@@ -8,7 +8,6 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'spinner';
   data:any;
   singleData:any={
     name:'',
@@ -43,77 +42,84 @@ export class AppComponent {
   }
 
   startTimer() {
-   
     const intervalId = setInterval(() => {
-      if(this.remainingTime === 60){
-        const generateId = Math.ceil(Math.random() * 20)
-        console.log("generated Id:",generateId)
-      }
-      this.remainingTime--; // Decrease the remaining time by 1 second
-      if (this.remainingTime < 0) {
-        // clearInterval(intervalId); // Stop the timer when the remaining time reaches 0
-        this.remainingTime = 60;
-        
-        
-        // this.deleteBets()
-        console.log('Timer expired!'); // You can execute any function when the timer expires
-      }
-    this.updateButtons()
-    }, 1000); // Run the timer function every 1000 milliseconds (1 second)
-  }
+        if (this.remainingTime === 60) {
+            const generateId = Math.ceil(Math.random() * 20);
+            console.log("generated Id:", generateId);
+        }
+        this.remainingTime--;
+        if (this.remainingTime <= 10 && !this.isButtonDisabled) {
+            this.isButtonDisabled = true;
+            this.spinwheel2();
+        }
+        if (this.remainingTime < 0) {
+            this.remainingTime = 60;
+            this.isButtonDisabled = false;
+            clearInterval(intervalId);
+            console.log('Timer expired!');
+        }
+    }, 1000);
+}
+
 
   isSpinning: boolean = false;
 
   updateButtons(){
     if(this.remainingTime <= 10 && !this.isSpinning){
-      this.isSpinning = true;
+      // this.isSpinning = true;
       // this.spinwheel()
       this.spinwheel2()
       this.isButtonDisabled = true;
-      setTimeout(() => {
-        this.isSpinning = false;
-      }, 10000);
+      // setTimeout(() => {
+      //   this.isSpinning = false;
+      // }, 10000);
     }else{
       this.isButtonDisabled = false;
     }
   }
 
-  spinwheel2(){
-    // const minimumData = this.minimumBets
-    const randomValue = Math.floor(Math.random() * 10000) 
-    let wheel =  this.el.nativeElement.querySelector(".wheel")
-    this.renderer.setStyle(wheel,"transform",`rotate(${randomValue}deg)`)
-    console.log("random:",randomValue)
-
-    const remainingtime = this.remainingTime
-    const fieldsArray = ['tiger','lion','dragon','king']
-    // console.log(this.minimumBets[0].field)
-    for(const field of fieldsArray){
-        if(this.minimumBets.field === field && remainingtime <= 5 && remainingtime > 0){
-          const stopAngel = this.stopAtAngle(field)
-          this.renderer.setStyle(wheel,"transition","none")
-          this.renderer.setStyle(wheel, 'transform',`rotate(${stopAngel}deg)`)
-          break;
-        }
-    } 
+  spinwheel2() {
+    const startTime = performance.now();
+    const duration = 10000; // 10 seconds in milliseconds
+    const wheel = this.el.nativeElement.querySelector(".wheel");
+    this.spinWheelAnimation(wheel, startTime, duration);
   }
-
+  
+  spinWheelAnimation(wheel: any, startTime: number, duration: number) {
+    const currentTime = performance.now();
+    const elapsedTime = currentTime - startTime;
+  
+    if (elapsedTime < duration) {
+      const randomValue = Math.floor(Math.random() * 10000);
+      this.renderer.setStyle(wheel, "transform", `rotate(${randomValue}deg)`);
+      requestAnimationFrame(() => this.spinWheelAnimation(wheel, startTime, duration));
+    } else {
+      // After 10 seconds, calculate stop angle and stop the wheel
+      const field = 'tiger'
+      const stopAngle = this.stopAtAngle(field);
+      this.renderer.setStyle(wheel, "transition", "none");
+      this.renderer.setStyle(wheel, "transform", `rotate(${stopAngle}deg)`);
+    }
+  }
+  
   stopAtAngle(field: string): number {
     let stopAngle: number;
 
     // Logic to calculate stop angle based on the field
     if (field === 'tiger') {
-        stopAngle = 45/* calculate stop angle for tiger */;
-    } else if (field === 'lion') {
-        stopAngle = 120 /* calculate stop angle for lion */;
-    } else if (field === 'dragon') {
-        stopAngle = 240 /* calculate stop angle for dragon */;
-    } else if (field === 'king') {
-        stopAngle = 300/* calculate stop angle for king */;
+        stopAngle = 315/* calculate stop angle for tiger */;
+    }else if (field === 'lion') {
+        stopAngle = 225 /* calculate stop angle for lion */;
+    }else if (field === 'dragon') {
+        stopAngle = 135 /* calculate stop angle for dragon */;
+    }else if (field === 'king') {
+        stopAngle = 45/* calculate stop angle for king */;
+
     } else {
         // Handle other fields if needed
         stopAngle = 90/* default stop angle if field is not recognized */;
     }
+    console.log("return stopAngel:",stopAngle)
 
     return stopAngle;
 }
@@ -134,7 +140,7 @@ export class AppComponent {
 
 //     // Adjust initial rotation to align with the top side of the wheel
 //     let initialRotation = 360 - randomValue;
-    // this.renderer.setStyle(wheel, 'transform', `rotate(${initialRotation}deg)`);
+//     this.renderer.setStyle(wheel, 'transform', `rotate(${initialRotation}deg)`);
 
 //     let relativeDegree =(randomValue % 360);
 //     const segmentSize = 360 / this.data.length;
