@@ -107,3 +107,12 @@
 } */
 
 .modal{background: rgba(0,0,0, .5); }
+ .winner ul {
+    /* text-overflow: ellipsis; */
+    height: 100px;
+    overflow-y: auto;
+  }
+  .winner ul li {
+    white-space: nowrap;
+    width: 150px;
+  }

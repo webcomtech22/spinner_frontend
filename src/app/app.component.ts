@@ -25,7 +25,7 @@ export class AppComponent {
   minimumBets:any;
   showSpinner: boolean = true;
   generatedId:string='';
-  
+  winningAnimal: { animal: string, timestamp: Date }[] = [];
   constructor(private renderer: Renderer2, private el: ElementRef,private http:HttpClient) {}
   
 
@@ -69,6 +69,8 @@ export class AppComponent {
             this.isButtonDisabled = false;
             this.remainingTime = 60;
             console.log('Timer expired!');
+            const winner = {animal: this.minimumBets.field,timestamp: new Date()}
+            this.winningAnimal.push(winner)
         }
     }, 1000);
 }
@@ -266,6 +268,9 @@ stopAtAngle(field: string): number {
     this.http.get("http://localhost:3100/showBetsData/" + id).subscribe(res=>{
       this.minimumBets = res
       console.log(this.minimumBets)
+     
+        
+      
     })
   }
   

@@ -1,6 +1,12 @@
 
 <div class="body">
-
+  <div class="winner" style="color:white;margin-top: 300px;margin-right: -200px;background: fuchsia;">
+    <h2>Winner List  is :</h2>
+    <ul>
+      <li *ngFor ="let winner of winningAnimal">
+          {{winner.animal}} ({{winner.timestamp | date: 'medium'}})
+      </li>
+    </ul></div>
   <div class="container">
     <div class="spinbtn" >spin</div>
     <div class="wheel">
@@ -10,11 +16,10 @@
 
     </div>
 
-    <div style="margin-left: 800px;color: white;width: 100px;"><span>Timer :{{remainingTime}}</span></div>
+    <div style="margin-left: 900px;color: white;width: 100px;"><span>Timer :{{remainingTime}}</span></div>
 
     <div style="margin-top: 100px;" *ngFor="let value of data">
       <button [disabled]="isButtonDisabled" style="padding: 10px;background: blue;color: white;" (click)="getSingleData(value.id)">{{value.name}}</button>
-      
     </div>
     
   </div>
