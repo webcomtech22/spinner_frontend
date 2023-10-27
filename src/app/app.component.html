@@ -1,28 +1,39 @@
 
 <div class="body">
-  <div class="winner" style="color:white;margin-top: 300px;margin-right: -200px;background: fuchsia;">
-    <h2>Winner List  is :</h2>
-    <ul>
-      <li *ngFor ="let winner of winningAnimal">
-          {{winner.animal}} ({{winner.timestamp | date: 'medium'}})
-      </li>
-    </ul></div>
+  <!-- <div class="winner" style="color:white;margin-top: 300px;margin-right: -200px;background: fuchsia;"> -->
+    <div style="background: #333;margin-bottom: 100px;display: block;">
+      <div style="color: white;text-align: center;"><span>Timer :{{remainingTime}}</span></div>
+      <div class="winner" style="">
+        <h2 class="fs-4">Winner List  is :</h2>
+        <ul>
+          <li *ngFor ="let winner of winningAnimal">
+              {{winner.animal}} ({{winner.timestamp | date: 'medium'}})
+          </li>
+        </ul></div>
+
+    </div>
+   
   <div class="container">
     <div class="spinbtn" >spin</div>
     <div class="wheel">
       <div class="number" *ngFor="let obj of data; let i = index" [style]="{'--i':i + 1,'--clr':obj.color}">
          <span>{{obj.name}}</span></div> 
            <!-- <img src="/assets/rupee.png" height="20"> -->
-
     </div>
+ 
 
-    <div style="margin-left: 900px;color: white;width: 100px;"><span>Timer :{{remainingTime}}</span></div>
+    <!-- <div style="margin-left: 900px;color: white;width: 100px;"><span>Timer :{{remainingTime}}</span></div> -->
 
-    <div style="margin-top: 100px;" *ngFor="let value of data">
+    <!-- <div style="margin-top: 100px;" *ngFor="let value of data">
+      <button [disabled]="isButtonDisabled" style="padding: 10px;background: blue;color: white;" (click)="getSingleData(value.id)">{{value.name}}</button>
+    </div> -->
+  </div>
+  <div style="text-align: center;">
+    <div style="padding-bottom: 100px;display: inline;" *ngFor="let value of data">
       <button [disabled]="isButtonDisabled" style="padding: 10px;background: blue;color: white;" (click)="getSingleData(value.id)">{{value.name}}</button>
     </div>
-    
   </div>
+ 
   </div>
   
 
