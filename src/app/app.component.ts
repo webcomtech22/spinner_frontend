@@ -212,6 +212,7 @@ stopAtAngle(field: string): number {
     event.preventDefault();
     this.addBets();
     this.onCloseHandled();
+    this.isDialogVisible = false
   }
 
   addBets(){
@@ -273,5 +274,8 @@ stopAtAngle(field: string): number {
       
     })
   }
-  
+  isDropdown : boolean = false;
+  toggleDropdown(){
+    this.isDropdown = !this.isDropdown
+  }
 }

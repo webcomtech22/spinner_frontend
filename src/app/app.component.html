@@ -3,15 +3,36 @@
   <!-- <div class="winner" style="color:white;margin-top: 300px;margin-right: -200px;background: fuchsia;"> -->
     <div style="background: #333;margin-bottom: 100px;display: block;">
       <div style="color: white;text-align: center;"><span>Timer :{{remainingTime}}</span></div>
-      <div class="winner" style="">
+      <!-- <div class="winner" style="">
         <h2 class="fs-4">Winner List  is :</h2>
         <ul>
           <li *ngFor ="let winner of winningAnimal">
               {{winner.animal}} ({{winner.timestamp | date: 'medium'}})
           </li>
-        </ul></div>
+        </ul></div> -->
+        <div style="float: right;margin-right: 100px;" class="container2">
+          <div class="groupMenu" (click)="toggleDropdown()">
 
-    </div>
+            <div style="background: rgb(30, 30, 165);height: 40px;width: 300px;">
+              <div  style="display: inline-block;padding: 5px 10px 0 0;float: right;">
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+              </div>
+              <span style="margin-left: 20px;font-weight: 600;font-size: 30px;color: white;">Winner List is:</span>
+            </div>
+           
+            <div class="dropdown-content" *ngIf ="isDropdown">
+              <ul>
+                <li *ngFor ="let winner of winningAnimal">
+                    {{winner.animal}} ({{winner.timestamp | date: 'medium'}})
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+  </div>
    
   <div class="container">
     <div class="spinbtn" >spin</div>
@@ -20,26 +41,21 @@
          <span>{{obj.name}}</span></div> 
            <!-- <img src="/assets/rupee.png" height="20"> -->
     </div>
- 
-
-    <!-- <div style="margin-left: 900px;color: white;width: 100px;"><span>Timer :{{remainingTime}}</span></div> -->
-
-    <!-- <div style="margin-top: 100px;" *ngFor="let value of data">
-      <button [disabled]="isButtonDisabled" style="padding: 10px;background: blue;color: white;" (click)="getSingleData(value.id)">{{value.name}}</button>
-    </div> -->
   </div>
-  <div style="text-align: center;">
-    <div style="padding-bottom: 100px;display: inline;" *ngFor="let value of data">
-      <button [disabled]="isButtonDisabled" style="padding: 10px;background: blue;color: white;" (click)="getSingleData(value.id)">{{value.name}}</button>
+
+    <div style="text-align: center;">
+      <div style="padding-bottom: 100px;display: inline;" *ngFor="let value of data">
+        <button [disabled]="isButtonDisabled" style="padding: 10px;background: blue;color: white;" (click)="getSingleData(value.id)">{{value.name}}</button>
+      </div>
+      <div *ngIf="isDialogVisible" style="display: inline;margin-left: 50px;color: white;">
+        {{singleData.name}}: {{inputValue}}
+      </div>
     </div>
-  </div>
- 
-  </div>
+</div>
   
-
-
+  
   <div class="modal" *ngIf="isDialogVisible"  tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
-    <div class="modal-dialog" style="width: 30%;" role="document">
+    <div class="modal-dialog" style="" role="document">
           <div class="modal-content" style="background: skyblue;">
                 <div class="modal-header bg_blue">
                       <h4 class="modal-title color_yellow">Give Price</h4>
@@ -60,22 +76,22 @@
                 <input type="number" name="userPrice" placeholder="Give your Price" class="form-control font" [(ngModel)]="inputValue">
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(100,$event)" style="padding: 0px 35px;"> +100 </button>
+                <button (click)="getButtonValue(100,$event)" class="btnPrice"> +100 </button>
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(200,$event)" style="padding: 0px 35px;"> +200 </button>
+                <button (click)="getButtonValue(200,$event)" class="btnPrice"> +200 </button>
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(300,$event)" style="padding: 0px 35px;"> +300 </button>
+                <button (click)="getButtonValue(300,$event)" class="btnPrice"> +300 </button>
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(400,$event)" style="padding: 0px 35px;"> +400 </button>
+                <button (click)="getButtonValue(400,$event)" class="btnPrice"> +400 </button>
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(500,$event)" style="padding: 0px 35px;"> +500 </button>
+                <button (click)="getButtonValue(500,$event)" class="btnPrice"> +500 </button>
               </div>
               <div class="mb-2 col-4">
-                <button (click)="getButtonValue(600,$event)" style="padding: 0px 35px;"> +600 </button>
+                <button (click)="getButtonValue(600,$event)" class="btnPrice"> +600 </button>
               </div>
               <div class="mb-2 col-10">
                 <label for="1" class="fw-bold form-label font" style="">Profit</label>
