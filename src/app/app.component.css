@@ -115,11 +115,16 @@
     } */
 
 .modal{background: rgba(0,0,0, .5); }
- .winner ul {
-    /* text-overflow: ellipsis; */
-    height: 50px;
-    overflow-y: auto;
-
+ .winnerDiv{
+    background: #333;
+    margin-bottom: 80px;
+    display: block;
+ }
+ .winnerList {
+    margin-left: 20px;
+    font-weight: 600;
+    font-size: 30px;
+    color: white;
   }
   .modal-dialog{
     width: 30%;
@@ -127,20 +132,17 @@
   .btnPrice{
     padding: 0 32px;
   }
-  .winner{
-    color:white;
-    /* background: palevioletred; */
-    width: 250px;
-    float: right;
-    margin-right: 50px;
-    text-align: center;
+  .showBtnPrice{
+    /* display: block; */
+    /* margin-left: 50px; */
+    color: white;
+    display: block;
     
   }
-  .winner ul li {
-    white-space: nowrap;
-    width: 50px;
+  .g{
+    /* margin-bottom: -50px; */
   }
-
+  
   @media (max-width:900px) 
      {
     div.container div.wheel{
@@ -152,13 +154,21 @@
             top: 35%;
             left: 53.5%;
         } 
+    .container .wheel .number span{
+        font-size: 1.5em;
+    }
     div.container{
         margin-right: 0px;
         margin-left: -25px;
     }
-    div.winner{
-        margin-right: 0px;
-        /* width: 100px; */
+    div.winnerList{
+        /* margin-left: 20px;
+        font-weight: 500;
+        font-size: 20px;
+        color: white; */
+    }
+    div.container2{
+        margin-right: 10px;
     }
     div.modal-dialog{
         margin-left: 30px;
@@ -167,15 +177,44 @@
     button.btnPrice{
         padding: 0 23px;
       }
+    div.showBtnPrice{
+        display: block;
+        /* margin-left: 50px; */
+        margin-bottom: 20px;
+        color: white;
+      }
+     div.winnerDiv{
+        background: #333;
+        margin-bottom:170px;
+        display: block;
+     }
+     div.g{
+        margin-top: -55px;
+     }
     }
     
 
-    /* @media(max-width:653px) and (min-width:280px){
+    @media(max-width:280px){
         div.container{
             margin-right: 0px;
-            margin-left: -40px;
+            margin-left: -35px;
         }
-    } */
+        div.container div.wheel{
+            width: 50%;
+            height: 50%;
+        }
+        div.container div.spinbtn{
+            top: 25%;
+            left: 44%;
+        }  
+        div.modal-dialog{
+            margin-left: 0px;
+            width: 75%;
+        }
+        button.btnPrice{
+            padding: 0 18px;
+          }
+    }
     
     @media(max-width:540) and (min-width:600px){
         div.container{
@@ -288,6 +327,8 @@
 .container2{
     display: grid;
     place-items: center;
+    float: right;
+    margin-right: 100px;
 }
 .groupMenu{
     cursor: pointer;
@@ -305,6 +346,8 @@
     background-color: rgb(30, 30, 165);
     min-width: 300px;
     color: white;
+    overflow-y: auto;
+    height: 100px;
 }
 .groupMenu:hover .dropdown-content{
     display: block;

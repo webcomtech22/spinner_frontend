@@ -1,29 +1,22 @@
 
 <div class="body">
   <!-- <div class="winner" style="color:white;margin-top: 300px;margin-right: -200px;background: fuchsia;"> -->
-    <div style="background: #333;margin-bottom: 100px;display: block;">
+    <div class="winnerDiv" style="">
       <div style="color: white;text-align: center;"><span>Timer :{{remainingTime}}</span></div>
-      <!-- <div class="winner" style="">
-        <h2 class="fs-4">Winner List  is :</h2>
-        <ul>
-          <li *ngFor ="let winner of winningAnimal">
-              {{winner.animal}} ({{winner.timestamp | date: 'medium'}})
-          </li>
-        </ul></div> -->
-        <div style="float: right;margin-right: 100px;" class="container2">
-          <div class="groupMenu" (click)="toggleDropdown()">
 
+        <div style="" class="container2">
+          <div class="groupMenu" (click)="toggleDropdown()">
             <div style="background: rgb(30, 30, 165);height: 40px;width: 300px;">
-              <div  style="display: inline-block;padding: 5px 10px 0 0;float: right;">
+              <div style="display: inline-block;padding: 5px 10px 0 0;float: right;">
                   <div class="dot"></div>
                   <div class="dot"></div>
                   <div class="dot"></div>
               </div>
-              <span style="margin-left: 20px;font-weight: 600;font-size: 30px;color: white;">Winner List is:</span>
+              <span style="margin-left: 20px;font-weight: 600;font-size: 30px;color: white;"></span>
             </div>
            
             <div class="dropdown-content" *ngIf ="isDropdown">
-              <ul>
+              <ul style="margin-right: 20px;text-align: center;"> Winner List:
                 <li *ngFor ="let winner of winningAnimal">
                     {{winner.animal}} ({{winner.timestamp | date: 'medium'}})
                 </li>
@@ -38,18 +31,19 @@
     <div class="spinbtn" >spin</div>
     <div class="wheel">
       <div class="number" *ngFor="let obj of data; let i = index" [style]="{'--i':i + 1,'--clr':obj.color}">
-         <span>{{obj.name}}</span></div> 
+         <span style="">{{obj.name}}</span></div> 
            <!-- <img src="/assets/rupee.png" height="20"> -->
     </div>
   </div>
 
-    <div style="text-align: center;">
-      <div style="padding-bottom: 100px;display: inline;" *ngFor="let value of data">
-        <button [disabled]="isButtonDisabled" style="padding: 10px;background: blue;color: white;" (click)="getSingleData(value.id)">{{value.name}}</button>
-      </div>
-      <div *ngIf="isDialogVisible" style="display: inline;margin-left: 50px;color: white;">
+    <div style="text-align: center;" class="g">
+      <div *ngIf="isDialogVisible" class="showBtnPrice" >
         {{singleData.name}}: {{inputValue}}
       </div>
+      <div style="display: inline;" *ngFor="let value of data">
+        <button [disabled]="isButtonDisabled" style="padding: 10px;background: blue;color: white;" (click)="getSingleData(value.id)">{{value.name}}</button>
+      </div>
+      
     </div>
 </div>
   
@@ -95,7 +89,7 @@
               </div>
               <div class="mb-2 col-10">
                 <label for="1" class="fw-bold form-label font" style="">Profit</label>
-                <label for="1" class="d-block fw-bold form-label font" style="color: green; margin-top: -10px;"> {{(singleData.price * inputValue)-inputValue}}</label>
+                <label for="1" class="d-block fw-bold form-label font" style="color: green; margin-top: -10px;"> {{(singleData.price * inputValue)-inputValue | number: '1.0-0'}}</label>
               </div>
               <div class="mb-2 col-2">
                 <label for="1" class="fw-bold form-label font" style="">Loss</label>

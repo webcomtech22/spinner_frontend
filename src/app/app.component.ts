@@ -47,32 +47,32 @@ export class AppComponent {
   }
 
   startTimer() {
-    // const intervalId = setInterval(() => {
-    //     if (this.remainingTime === 60) {
-    //         // const generatedId = Math.ceil(Math.random() * 20);
-    //         // console.log("generated Id:", generatedId);
-    //         const timestamp = new Date().getTime().toString(); // Get current timestamp as a string
-    //         const randomString = Math.random().toString(36).substring(2, 8); // Generate a random string
-    //         const uniqueId = `${timestamp}-${randomString}`;
-    //         this.generatedId = uniqueId
-    //         // this.getMinimumBets()
-    //         // console.log(uniqueId)
-    //         }
-    //     this.remainingTime--;
-    //     if (this.remainingTime <= 10 && !this.isButtonDisabled) {
-    //         this.isButtonDisabled = true;
-    //         this.getMinimumBets()
-    //         // console.log(this.minimumBets.field)
-    //         this.spinwheel2();
-    //     }
-    //     if (this.remainingTime < 0) {
-    //         this.isButtonDisabled = false;
-    //         this.remainingTime = 60;
-    //         console.log('Timer expired!');
-    //         const winner = {animal: this.minimumBets.field,timestamp: new Date()}
-    //         this.winningAnimal.push(winner)
-    //     }
-    // }, 1000);
+    const intervalId = setInterval(() => {
+        if (this.remainingTime === 60) {
+            // const generatedId = Math.ceil(Math.random() * 20);
+            // console.log("generated Id:", generatedId);
+            const timestamp = new Date().getTime().toString(); // Get current timestamp as a string
+            const randomString = Math.random().toString(36).substring(2, 8); // Generate a random string
+            const uniqueId = `${timestamp}-${randomString}`;
+            this.generatedId = uniqueId
+            // this.getMinimumBets()
+            // console.log(uniqueId)
+            }
+        this.remainingTime--;
+        if (this.remainingTime <= 10 && !this.isButtonDisabled) {
+            this.isButtonDisabled = true;
+            this.getMinimumBets()
+            // console.log(this.minimumBets.field)
+            this.spinwheel2();
+        }
+        if (this.remainingTime < 0) {
+            this.isButtonDisabled = false;
+            this.remainingTime = 60;
+            console.log('Timer expired!');
+            const winner = {animal: this.minimumBets.field,timestamp: new Date()}
+            this.winningAnimal.push(winner)
+        }
+    }, 1000);
 }
 
 
