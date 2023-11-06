@@ -16,7 +16,7 @@
             </div>
            
             <div class="dropdown-content" *ngIf ="isDropdown">
-              <ul style="margin-right: 20px;text-align: center;"> Winner List:
+              <ul><p style="margin-right: 20px;text-align: center;font-weight: 600;">Winner List</p>
                 <li *ngFor ="let winner of winningAnimal">
                     {{winner.animal}} ({{winner.timestamp | date: 'medium'}})
                 </li>
